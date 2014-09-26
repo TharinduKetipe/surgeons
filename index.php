@@ -16,34 +16,21 @@
                 
 	</head>
 	<body>
+            <!-- Go to www.addthis.com/dashboard to customize your tool this cause to crash the headers-->
+<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-54145d6f1e826127"></script>
+
             <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
             
             <section >
     <?php
     require_once 'core/init.php';
+    echo Config::get('mysql/host');
     
-   if(Session::exists('home')){
-       echo '<p>'. Session::flash('home').'</p> ';
-   }
-   $user = new User();
-   if($user->isLoggedIn()){
-       ?>
-                <p>Hello <a href="#"><?php echo escape($user->data()->username); ?></a>!</p>
-                
-                <ul>
-                    <li><a href="logout.php">Log out</a></li>
-                </ul>
-    <?php 
-    
-   }  else {
-       echo '<p> You need to <a href="login.php">log in </a> or <a href="register.php"> register</a></p>';
-       
-   }
    
-    include 'interface/header.inc';
     
     ?>
     <?php 
+    include 'interface/header.inc';
     
     include 'interface/slider.php';
    include 'interface/footer.inc';
@@ -52,10 +39,8 @@
             
             
            
-<!-- Go to www.addthis.com/dashboard to customize your tools
-<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-54145d6f1e826127"></script>
 
- -->
+ 
 		
 	</body>
 </html>
