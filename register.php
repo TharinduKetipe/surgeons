@@ -3,10 +3,12 @@ require_once 'core/init.php';
 
 
 
+
 if(Input::exists()){
     
     
-    //if(Token::check(Input::get('token'))){
+    if(Token::check(Input::get('token'))){
+        
 
     $validate = new Validation();
     $validation = $validate->check($_POST,array(
@@ -36,6 +38,7 @@ if(Input::exists()){
         foreach ($validate->errors() as $error){
             echo $error, '<br>';
         }
+    }
     }
 }
 
@@ -92,7 +95,7 @@ if(Input::exists()){
         <label for="name"> Name </label>
         <input type="text" name="name" id="name" value="<?php echo escape(Input::get('name')); ?>" >
     </div>
-    <input type="hidden" name="token" value="<?php //echo Token::generate(); ?>">
+    <input type="hidden" name="token" value="<?php echo Token::generate(); ?>">
     <input type="submit" value="register">
 </form>
     
