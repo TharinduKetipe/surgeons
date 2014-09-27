@@ -25,7 +25,24 @@
     <?php
     require_once 'core/init.php';
     //echo Config::get('mysql/host');
-    DB::getInstance()->query("SELECT username FROM users");
+   /* //DB query TEST
+    * $user =DB::getInstance()->get('users', array('username','=','billy '));
+    if(!$user->count()){
+        echo 'no user';
+    }  else {
+        
+            echo $user->first()->username;
+        
+      
+    *  
+}*/
+    $userUpdate = DB::getInstance()->update('users',4,array(
+        
+        'password' => 'newpassword',
+        'name'     => 'Dale Steyn'
+        
+        
+    ));
     
    
     

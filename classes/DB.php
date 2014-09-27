@@ -30,10 +30,10 @@ class DB {
         $this->_error = FALSE;
         
         if($this->_query = $this->_pdo->prepare($sql)){
-            echo 'Sucess';
-        }
-    }
-             /*$x = 1;
+           // echo 'Sucess';
+        
+    
+             $x = 1;
             if(count($params)){
             foreach ($params as $param){
                 $this->_query->bindValue($x , $param);
@@ -41,8 +41,9 @@ class DB {
             }
             }
             if($this->_query->execute()){
-                $this->_results = $this->_query-> fetchAll(PDO::FETCH_OBJ);
+                $this->_results = $this->_query->fetchAll(PDO::FETCH_OBJ);
                 $this->_count = $this->_query->rowCount();
+                
             }else {
                 $this->_error = true;
             }
@@ -53,7 +54,7 @@ class DB {
 
     private function action($action,$table,$where = array()){
         if(count($where === 3)){
-            $operators = array('=','<','>','<=','>=');
+            $operators = array('=','>','<','>=','<=');
             
             $field    = $where[0];
             $operator = $where[1];
@@ -61,6 +62,7 @@ class DB {
             
             if (in_array($operator, $operators)){
                 $sql = "{$action} FROM {$table} WHERE {$field} {$operator} ?";
+                
                 if (!$this->query($sql,array($value))->error()){
                     return $this;
                     
@@ -80,25 +82,26 @@ class DB {
     public function insert($table,$fields = array()){
         if(count($fields)){
             $keys = array_keys($fields);
-            $values = '';
+            $values = NULL;
             $x = 1;
-            
             foreach ($fields as $field){
                 $values .= '?';
-                if($x < count($fields)){
+                if ($x < count($fields)){
                     $values .= ',';
                 }
                 $x++;
             }
-            //die($values);
+        
             
-            $sql = "INSERT INTO {$table} (`".implode('`,`',$keys)."`)VALUES ({$values })";
+            $sql = "INSERT INTO users(`".implode('`,`', $keys)."`)VALUES({$values})";
             if($this->query($sql,$fields)->error()){
-                return true;
-                
+                return TRUE;    
             }
-            return false;      
+            
         }
+        return FALSE;
+            
+           
         
         
     }
@@ -117,6 +120,7 @@ class DB {
         
         $sql = "UPDATE {$table} SET {$set} WHERE id = {$id}";
         
+        
         if (!$this->query($sql,$fields)->error()){
             return true;
         }
@@ -128,7 +132,7 @@ class DB {
         return $this->_results;
     }
     public function first(){
-       // return $this->results()[0];
+        return $this->results()[0];
     }
 
     public function error(){
@@ -137,5 +141,5 @@ class DB {
     
     public function count(){
         return $this->_count;
-    }*/
+    }
 }
