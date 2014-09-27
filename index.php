@@ -35,14 +35,17 @@
         
       
     *  
-}*/
+}
     $userUpdate = DB::getInstance()->update('users',4,array(
         
         'password' => 'newpassword',
         'name'     => 'Dale Steyn'
         
         
-    ));
+    ));*/
+    if(Session::exists('success')){
+        echo Session::flash('success');
+    }
     
    
     

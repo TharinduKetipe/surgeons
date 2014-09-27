@@ -33,7 +33,24 @@ if(Input::exists()){
         )
     ));
     if ($validate->passed()){
-        echo 'Passed';
+        $surgeon = new Surgeon();
+        $salt = Hash::salt(32);
+        
+        try {
+            $surgeon->create(array(
+                'username' => Input::get('username'),
+                'password' => Hash::make(Input::get('password'),$salt),
+                'salt' => $salt,
+                'name' => Input::get('name'),
+                'joined' => date('Y-m-d H:i:s'),
+                'group' => 1
+            ));
+            
+            
+        } catch (Exception $e) {
+            die($e->getMessage());
+            
+        }
     }else {
         foreach ($validate->errors() as $error){
             echo $error, '<br>';
