@@ -7,13 +7,13 @@ class Surgeon{
     public $_isLoggedIn;
 
 
-    public function __construct($user = NULL) {
+    public function __construct($surgeon = NULL) {
          $this->_db = DB::getInstance();
          $this->_sessionName = Config::get('session/session_name');
-         if(!$user){
+         if(!$surgeon){
              if(Session::exists($this->_sessionName)){
-                 $user = Session::get($this->_sessionName);
-                 if($this->find($user)){
+                 $surgeon = Session::get($this->_sessionName);
+                 if($this->find($surgeon)){
                      $this->_isLoggedIn = TRUE;
                      
                  }  else {
@@ -22,7 +22,7 @@ class Surgeon{
                  
              }
          }  else {
-             $this->find($user);
+             $this->find($surgeon);
              
          }
      }
@@ -30,12 +30,13 @@ class Surgeon{
      public function create($fields = array()){
          if(!$this->_db->insert('users',$fields)){
              throw new Exception('There was a problem');
-         }
+             
+         }  
      }
-     public function find($user = NULL){
-         if ($user){
-             $field = (is_numeric($user)) ? 'id' : 'username';
-             $data = $this->_db->get('users',array($field,'=',$user));
+     public function find($surgeon = NULL){
+         if ($surgeon){
+             $field = (is_numeric($surgeon)) ? 'id' : 'username';
+             $data = $this->_db->get('users',array($field,'=',$surgeon));
              
              if($data->count()){
                  $this->_data = $data->first();
@@ -47,13 +48,13 @@ class Surgeon{
      }
      
      public function login($username = NULL ,$password = NULL){
-         $user = $this->find($username);
+         $surgeon = $this->find($username);
          
          
-         if($user){
-             if ($user) {
+         if($surgeon){
+             if ($surgeon) {
 			if ($this->data()->password==Hash::make($password, $this->data()->salt)) {
-				Session::put($this->_sessionName, $this->data()->Patient_ID);
+				Session::put($this->_sessionName, $this->data()->id);
 				return true;
 			}
          }
