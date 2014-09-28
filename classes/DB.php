@@ -79,30 +79,28 @@ class DB {
         return $this->action('DELETE', $table, $where);
         
     }
-    public function insert($table,$fields = array()){
+    public function  insert($table, $fields = array()){
         if(count($fields)){
             $keys = array_keys($fields);
-            $values = NULL;
+            $values = null;
             $x = 1;
             foreach ($fields as $field){
                 $values .= '?';
-                if ($x < count($fields)){
-                    $values .= ',';
+                if($x < count($fields)){
+                    $values .= ', ';
                 }
                 $x++;
             }
-        
-            
-            $sql = "INSERT INTO users(`".implode('`,`', $keys)."`)VALUES({$values})";
-            if($this->query($sql,$fields)->error()){
-                return TRUE;    
-            }
-            
-        }
-        return FALSE;
-            
            
-        
+            
+            $sql = "INSERT INTO users  (`" . implode('`,`',$keys). "`) VALUES ({$values})" ;
+            
+            if(!$this->query($sql, $fields)->error()){
+                return true;
+                
+            }
+        }
+        return false;
         
     }
     public function update($table,$id,$fields){
