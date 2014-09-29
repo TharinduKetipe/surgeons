@@ -33,40 +33,28 @@ class Surgeon{
 			
 		}
 	}
-     public function find($surgeon = NULL){
-         if ($surgeon){
-             $field = (is_numeric($surgeon)) ? 'id' : 'username';
-             $data = $this->_db->get('users',array($field,'=',$surgeon));
-             
-             if($data->count()){
-                 $this->_data = $data->first();
-                 return TRUE;
-                 
-             }
-         }
-         return FALSE;
-     }
+     public function find($surgeon=null){
+		if ($surgeon) {
+			$field=(is_numeric($surgeon)) ? 'id' : 'username';
+			$data=$this->_db->get('users', array($field,'=',$surgeon));
+			if($data->count()){
+				$this->_data=$data->first();
+				return true;
+			}
+		}
+		return false;
+	}
      
-     public function login($username = NULL ,$password = NULL){
-         $surgeon = $this->find($username);
-         
-         if($surgeon){
-             if($this->data()->password === Hash::make($password,  $this->data()->salt)){
-                 Session::put($this->_sessionName,  $this->data()->id);
-             }
-         }
-         return FALSE;
-         
-        /* 
-         if($surgeon){
-             if ($surgeon) {
+     public function login($username=null, $password=null){
+		$surgeon=$this->find($username);
+		if ($surgeon) {
 			if ($this->data()->password==Hash::make($password, $this->data()->salt)) {
 				Session::put($this->_sessionName, $this->data()->id);
 				return true;
 			}
-         }
-         return FALSE;
-     }*/}
+		}
+		return false;
+	}
      
      public function data(){
          return $this->_data;
