@@ -43,8 +43,8 @@
         
         
     ));*/
-    if(Session::exists('home ')){
-        echo '<p>'.Session::flash('home').'</p>';
+    if(Session::exists('index')){
+        echo '<p>'.Session::flash('index').'</p>';
     }
     
    

@@ -1,4 +1,6 @@
 <?php
+
+
 require_once 'core/init.php';
 
 
@@ -45,8 +47,11 @@ if(Input::exists()){
                 'joined' => date('Y-m-d H:i:s'),
                 'group' => 1
             ));
-            Session::flash('home','You have been registered and can now log in');
-            header('Location:index.php');
+            
+            Session::flash('index','You have been registered and can now log in!');
+            
+            Redirect::to('index.php');
+           //header('Location:index.php');
             
             
         } catch (Exception $e) {

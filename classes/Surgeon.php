@@ -50,7 +50,14 @@ class Surgeon{
      public function login($username = NULL ,$password = NULL){
          $surgeon = $this->find($username);
          
+         if($surgeon){
+             if($this->data()->password === Hash::make($password,  $this->data()->salt)){
+                 Session::put($this->_sessionName,  $this->data()->id);
+             }
+         }
+         return FALSE;
          
+        /* 
          if($surgeon){
              if ($surgeon) {
 			if ($this->data()->password==Hash::make($password, $this->data()->salt)) {
@@ -59,7 +66,7 @@ class Surgeon{
 			}
          }
          return FALSE;
-     }}
+     }*/}
      
      public function data(){
          return $this->_data;
