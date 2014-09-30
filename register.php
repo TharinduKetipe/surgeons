@@ -38,20 +38,23 @@ if(Input::exists()){
         $surgeon = new Surgeon();
         $salt = Hash::salt(32);
         
+        
         try {
             $surgeon->create(array(
                 'username' => Input::get('username'),
-                'password' => Hash::make(Input::get('password'),$salt),
+                'password' => Hash::make(Input::get('password')),
                 'salt' => $salt,
                 'name' => Input::get('name'),
                 'joined' => date('Y-m-d H:i:s'),
                 'group' => 1
             ));
             
+
             Session::flash('index','You have been registered and can now log in!');
             
+            
             Redirect::to('index.php');
-           //header('Location:index.php');
+            header('Location:index.php');
             
             
         } catch (Exception $e) {
@@ -77,13 +80,13 @@ if(Input::exists()){
    
     <div class="field"> 
         <label for="password">Choose a password</label>
-        <input type="password" name="password" id="password">
+        <input type="password" name="password" >
     
     </div>
     
     <div class="field">
         <label for="password_again" >Enter your password again</label>
-        <input type="password" name="password_again" id="password_again">
+        <input type="password" name="password_again" >
     </div>
     <div class="field">
         <label for="name"> Name </label>
@@ -91,5 +94,6 @@ if(Input::exists()){
     </div>
     <input type="hidden" name="token" value="<?php echo Token::generate(); ?>">
     <input type="submit" value="register">
+    
 </form>
     

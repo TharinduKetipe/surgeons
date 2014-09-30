@@ -37,23 +37,39 @@ class Surgeon{
 		if ($surgeon) {
 			$field=(is_numeric($surgeon)) ? 'id' : 'username';
 			$data=$this->_db->get('users', array($field,'=',$surgeon));
+                        
 			if($data->count()){
 				$this->_data=$data->first();
 				return true;
 			}
 		}
 		return false;
+                echo $field;
 	}
      
      public function login($username=null, $password=null){
 		$surgeon=$this->find($username);
+                print_r($this->_data);
+                var_dump($surgeon);
 		if ($surgeon) {
-			if ($this->data()->password==Hash::make($password, $this->data()->salt)) {
+                    
+                    $a1 =$this->data()->password;
+                    $a2 =Hash::make($password);
+                    
+                    
+                    
+                    
+                    
+			if ($this->data()->password===Hash::make($password)) {
 				Session::put($this->_sessionName, $this->data()->id);
-				return true;
-			}
-		}
-		return false;
+				return TRUE;
+			} 
+		}  
+                
+                    return false;
+                   
+                
+		
 	}
      
      public function data(){

@@ -11,13 +11,14 @@ if (Input::exists()) {
             $surgeon=new Surgeon();
             $login=$surgeon->login(Input::get('username'),Input::get('password'));
             if ($login) {
+                
                 Redirect::to('index.php');
             } else {
-                echo (Input::get('password'));
-                var_dump($login);
-                var_dump($surgeon);
+               
                 echo '<p> Sorry, login failed. </p>';
             }
+        
+        
             
         }else{
             foreach ($validation->errors() as $error) {
