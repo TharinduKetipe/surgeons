@@ -3,13 +3,18 @@
 class Surgeon{
     private $_db,
             $_data,
-            $_sessionName;
-    public $_isLoggedIn;
+            $_sessionName,
+            $_cookieName;
+    public  $_isLoggedIn;
 
 
     public function __construct($surgeon = NULL) {
          $this->_db = DB::getInstance();
+         
          $this->_sessionName = Config::get('session/session_name');
+          $this->_cookieName = Config::get('remember/cookie_name');
+         
+         
          if(!$surgeon){
              if(Session::exists($this->_sessionName)){
                  $surgeon = Session::get($this->_sessionName);
@@ -27,6 +32,24 @@ class Surgeon{
          }
      }
      
+     public function update($fields = array(), $id = NULL){
+         
+         if(!$id && $this->isLoggedIn()){
+             
+             $id = $this->data()->id;
+         }
+         
+         if(!$this->_db->update('users',$id,$fields)){
+             throw new Exception('There was a problem updating.');
+             
+         }
+         
+         
+         
+     }
+
+     
+
      public function create($fields=array()){
 		if (!$this->_db->insert('users', $fields)) {
 			throw new Exception('There was a problem creating an account.');
@@ -47,10 +70,18 @@ class Surgeon{
                 echo $field;
 	}
      
-     public function login($username=null, $password=null){
-		$surgeon=$this->find($username);
-                print_r($this->_data);
-                var_dump($surgeon);
+     public function login($username=null, $password=null, $remember=FALSE){
+		
+                
+                if(!$username && !$password && $this->exists()){
+                    
+                Session::put($this->_sessionName, $this->data()->id);
+                    
+                }  else {
+                    
+                    $surgeon=$this->find($username);
+                    
+                
 		if ($surgeon) {
                     
                     $a1 =$this->data()->password;
@@ -62,18 +93,48 @@ class Surgeon{
                     
 			if ($this->data()->password===Hash::make($password)) {
 				Session::put($this->_sessionName, $this->data()->id);
+                                
+                                if($remember){
+                                    $hash = Hash::unique();
+                                    $hashCheck = $this->_db->get('users_session',array('user_id','=',  $this->data()->id));
+                                    
+                                    if(!$hashCheck->count()){
+                                        $this->_db->insert('users_session',array(
+                                            'user_id' => $this->data()->id,
+                                            'hash' => $hash
+                                        
+                                        ));
+                                    }  else {
+                                        $hash = $hashCheck->first()->hash;
+                                        
+                                    }
+                                    
+                                    Cookie::put($this->_cookieName, $hash, Config::get('remember/cookie_expiry'));
+                                    
+                                }
 				return TRUE;
 			} 
-		}  
+		} 
+                
+                }
                 
                     return false;
                    
                 
 		
 	}
+        
+    public function exists(){
+        
+    return(!empty($this->_data))? TRUE:FALSE;
+    }
+    
     public function logout(){
         
+        $this->_db->delete('users_session',array('user_id', '=',  $this->data()->id));
+        
         Session::delete($this->_sessionName);
+        Cookie::delete($this->_cookieName);
     }
 
     public function data(){
