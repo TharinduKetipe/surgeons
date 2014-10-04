@@ -54,7 +54,7 @@ if(Input::exists()){
             
             
             Redirect::to('index.php');
-            header('Location:index.php');
+            
             
             
         } catch (Exception $e) {
@@ -91,6 +91,11 @@ if(Input::exists()){
     <div class="field">
         <label for="name"> Name </label>
         <input type="text" name="name" id="name" value="<?php echo escape(Input::get('name')); ?>" >
+    </div>
+    <div class="field">
+        <label for="remember">
+            <input type="checkbox" name="remember" id="remember" > Remember me
+        </label>
     </div>
     <input type="hidden" name="token" value="<?php echo Token::generate(); ?>">
     <input type="submit" value="register">
