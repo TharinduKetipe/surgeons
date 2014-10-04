@@ -50,13 +50,17 @@
     if($surgeon->isLoggedIn()){
         ?>
     
-        <p>Hello <a href="#"> <?php echo escape($surgeon->data()->username); ?> </a></p>
+                <p>Hello <a href="profile.php?user=<?php echo escape($surgeon->data()->username); ?>"><?php echo escape($surgeon->data()->username); ?> </a></p>
         <ul>
             <li><a href="logout.php">Log out</a></li>
             <li><a href="update.php">Update profile</a></li>
             <li><a href="changepassword.php">Change password</a></li>
         </ul>
         <?php
+        
+        if($surgeon->hasPermission('admin')){
+            echo '<p>You are an administrator</p>';
+        }
     }  else {
         echo '<p> You need to <a href="login.php">log in</a> or <a href="register.php">register</a>!</p>';
         

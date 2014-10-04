@@ -37,7 +37,13 @@ if(Input::exists()){
             if(Hash::make(Input::get('password_current'))!== $surgeon->data()->password){
                 echo 'Your current password is wrong.';
             }  else {
-                echo 'OK!';
+                $surgeon->update(array(
+                    'password' => Hash::make(Input::get('password_new'))
+                ));
+                
+                Session::flash('index','Your password has been changed!');
+                Redirect::to('index.php');
+                
                 
             }
             

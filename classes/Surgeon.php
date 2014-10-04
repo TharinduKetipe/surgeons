@@ -123,8 +123,20 @@ class Surgeon{
                 
 		
 	}
+    public function hasPermission($key){
         
-    public function exists(){
+        $group = $this->_db->get('groups',array('id','=',  $this->data()->group));
+        
+        if($group->count()){
+            $permissions = json_decode($group->first()->permissions,TRUE);
+            if($permissions[$key]==TRUE){
+                return TRUE;
+            }
+        }
+        return FALSE;
+    }
+
+            public function exists(){
         
     return(!empty($this->_data))? TRUE:FALSE;
     }
