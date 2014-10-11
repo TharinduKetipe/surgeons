@@ -292,6 +292,8 @@ footer {
 }
 #footer-sec{
     background: #888;
+    margin-top: 0px;
+    margin-bottom: 0px;
 }
 .login{
     width: 100%;
@@ -300,14 +302,19 @@ footer {
     opacity: 1;
     margin-top: 0px;
     padding-right: 30px;
+    margin-bottom: 0px;
+    
     
 }
 .alert-warning{
     color: #fe1604;
     margin-top: 0px;
     text-align: center;
-    background:fa98a3 ;
+    background: #fff;
     border-color: #fe1604;
+    border-width: 2px;
+    
+    
     
     
 }
@@ -321,6 +328,39 @@ footer {
     padding-top: 0px;
     font-size: 15px;
 }
+.regout{
+    margin-top: 0px;
+    margin-bottom: 0px;    
+    background: #f7f8f9;
+    
+    
+        
+    
+}
+.regs{
+    margin-top: 0px;
+    margin-bottom: 0px;
+    width: 60%;
+    background: #fff;
+    margin-left: 20%;
+    margin-right: 20%;
+    border-radius: 20px;
+    padding: 25px 10px;
+   
+    
+    
+}
+#sreg{
+    float: right;
+    background: #428bca;
+    color: #fff;
+    font-size: 25px;
+    border-radius: 5px;
+    border-color: #fff;
+    border-width: 3px;
+   
+}
+
 
 
   

@@ -1,4 +1,111 @@
 <?php
+
+
+
+require_once 'core/init.php';
+global $error;
+global $fail;
+
+
+
+
+if(Input::exists()){
+    
+    
+    if(Token::check(Input::get('token'))){
+        
+
+    $validate = new Validation();
+    $validation = $validate->check($_POST,array(
+        'username'=> array(
+            'required' => TRUE,
+            'min' => 2,
+            'max' => 20,
+            'unique' => 'users'
+        ),
+        'password'=> array(
+            'required'=> TRUE,
+            'min' => 6
+        ),
+        'ConfirmPassword' => array(
+            'required' => TRUE,
+            'matches' => 'password'
+        ),
+        'name' => array(
+            'required' => TRUE,
+            'min' => 2,
+            'max' => 100,
+        ),
+        'email' => array(
+            'required' => TRUE,
+            'evalidate'=> TRUE,
+            
+            
+        ),
+        'nic' => array(
+            'required' => TRUE,
+            
+        ),
+        'birthday' => array(
+            'required' => TRUE,
+            
+        ),
+        'address' => array(
+            'required' => TRUE,
+            
+        ),
+        'country' => array(
+            'required' => TRUE,
+            
+        ),
+        'gender' => array(
+            'required' => TRUE,
+            
+        ),
+        
+    ));
+   
+    if ($validate->passed()){
+        $surgeon = new Surgeon();
+        $salt = Hash::salt(32);
+        
+        
+        try {
+            $surgeon->create(array(
+                'username' => Input::get('username'),
+                'password' => Hash::make(Input::get('password')),
+                'salt' => $salt,
+                'name' => Input::get('name'),
+                'joined' => date('Y-m-d H:i:s'),
+                'group' => 1
+            ));
+            
+
+            Session::flash('index','You have been registered and can now log in!');
+            
+            
+            Redirect::to('index.php');
+            
+            
+            
+        } catch (Exception $e) {
+            die($e->getMessage());
+            
+        }
+    
+    }  else {
+        $error = $validation->errors();
+        
+        
+    }
+    
+    }
+}
+
+   
+?>
+
+<?php
 require_once'core/init.php';
         $uname = 'Username';
         $pwd   = 'Password';
@@ -22,7 +129,7 @@ if (Input::exists()) {
             } else {
                 echo '<div class="alert alert-warning alert-dismissible" role="alert">
   <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-  <strong>Username or Password was incorrect !</strong> 
+  <strong>Username or Password is incorrect !</strong> 
 </div>';
                     
                  
@@ -38,7 +145,7 @@ if (Input::exists()) {
             
             echo '<div class="alert alert-warning alert-dismissible" role="alert">
   <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-  <strong>Username or password was not entered !</strong> 
+  <strong>Required data are missing!!</strong> 
 </div>';
             
            
@@ -72,6 +179,8 @@ if (Input::exists()) {
 }
 
 ?>
+
+
 <html lang="en">
 	<head>
 		<meta http-equiv="content-type" content="text/html; charset=UTF-8">
@@ -130,14 +239,15 @@ if (Input::exists()) {
     </div>
      </nav>
             
-            <form action="" method="post">
+            <form action="" method="post" style="margin-bottom: 0px" >
             <div class="login">
-                <table style="alignment-adjust: central;border-width: 0px;float: right">
+                <table style="alignment-adjust: central;border-width: 0px;float: right" >
                     <tr>
                         <td>
                              <div class="input-group input-group-sm">
                              <span class="input-group-addon">@</span>
                              <input type="text" class="form-control"  placeholder="<?php echo $uname;?>" name="username" id="username" autocomplete="off">
+                             
                               </div>
                         </td>
                         <td>
@@ -152,7 +262,7 @@ if (Input::exists()) {
                         <td>
                             <div class="input-group input-group-sm">
                                 <input type="hidden" name="token" value="<?php echo Token::generate();?>">
-                                <input type="submit" value="log In" class="btn btn-default navbar-btn" style="background:#428bca;color: #fff">
+                                <input type="submit" value="log In" class="btn btn-default navbar-btn" style="background:#428bca;color: #fff" name="login">
                                 
                             </div>
                         </td>
@@ -180,32 +290,12 @@ if (Input::exists()) {
                 
             
         </form>
-            <!--
-<form action="" method="post">
-    
-    <div class="field">
-        <label for="username" >Username</label>
-        <input type="text" name="username" id="username" autocomplete="off">
-    </div>
-    
-    <div class="field">
-        
-        <label for="password">Password</label>
-        <input type="password" name="password" id="password" autocomplete="off">
-             
-    </div>
-    
-    <div class="field">
-        
-        <label for="remember">
-            <input type="checkbox" name="remember" id="remember"> Remember me 
-        </label>
-    </div>
-    
-    <input type="hidden" name="token" value="<//?php echo Token::generate();?>">
-    <input type="submit" value="login">
-</form> 
-
-</body>
-</html>
-            -->
+            <!--register-->
+            <?php
+            include 'register.php';
+            ?>
+            
+            <?php 
+            include 'interface/footer.inc';
+            ?>
+            
