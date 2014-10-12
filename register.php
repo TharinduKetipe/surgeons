@@ -7,7 +7,14 @@
 require_once 'core/init.php';
 global $error;
 global $fail;
-global $errordc;
+$dcerror = "";
+
+
+
+
+
+
+
 
 
     
@@ -20,8 +27,14 @@ global $errordc;
 if(Input::exists()){
     
     
+    
     if(Token::check(Input::get('token'))){
-        
+        if(!$_FILES['document']['size']>0){
+            $dcerror = "Please upload the document.";
+            
+        }  else {
+            
+                  }
 
     $validate = new Validation();
     $validation = $validate->check($_POST,array(
@@ -70,26 +83,32 @@ if(Input::exists()){
             'required' => TRUE,
             
         ),
-        'document' => array(
-            'upld' => TRUE,
-            
-        ),
+        
         
         
         
     ));
-    $validatedoc = $validate->checkd($_FILES,array(
-        
-        'document' => array(
-            'required' => TRUE,
-            
-        ),
-        
-    ));
+    
+    
    
-    if ( $validatedoc->passed()){
+    if ( $validation->passed()&& $_FILES['document']['size']>0){
         $surgeon = new Surgeon();
         $salt = Hash::salt(32);
+        
+        $fileName = $_FILES['document']['name'];
+        $tmpName  = $_FILES['document']['tmp_name'];
+        $fileSize = $_FILES['document']['size'];
+        $fileType = $_FILES['document']['type'];
+
+        $fp      = fopen($tmpName, 'r');
+        $content = fread($fp, filesize($tmpName));
+        $content = addslashes($content);
+         fclose($fp);
+
+        if(!get_magic_quotes_gpc()){
+
+        $fileName = addslashes($fileName);
+        }
         
         
         try {
@@ -103,12 +122,17 @@ if(Input::exists()){
                 'number' => Input::get('number'),
                 'address' => Input::get('address'),
                 'country' => Input::get('country'),
-                'document'=> Input::get('document'),
+                'dname'   => $fileName,
+                'dtype'   => $fileType,
+                'dsize'   => $fileSize,
+                'document'=> $content,
                 'salt' => $salt,
                 'name' => Input::get('name'),
                 'joined' => date('Y-m-d H:i:s'),
                 'group' => 1
             ));
+            
+            
             
 
             Session::flash('index','You have been registered and can now log in!');
@@ -125,7 +149,6 @@ if(Input::exists()){
     
     }  else {
         $error = $validation->errors();
-        $errordc = $validatedoc->errors();
         
         
         
@@ -533,13 +556,14 @@ if(Input::exists()){
                                 </div>
                             </td>
                             <td>
-                                <div class="field">                                
+                                <div class="field">
+                                    <input type="hidden" name="MAX_FILE_SIZE" value="2000000">
                                     <input type="file" name="document" id="document" value="document"><br>
                                     
                                 </div>
                             </td>
                             <td>
-                                <?php if (isset($errordc['document']))  echo '<span style="color:red;font-size:17px;">'.$errordc['document'].'</span>'; ?><br><br>
+                                <?php if (isset($dcerror))  echo '<span style="color:red;font-size:17px;">'.$dcerror.'</span>'; ?><br><br>
                             </td>
                         </tr>
                         <tr>
@@ -596,7 +620,7 @@ if(Input::exists()){
                             </td>
                             <td>
                                 <input type="hidden" name="token" value="<?php echo Token::generate(); ?>"> 
-                                <input type="submit" value="register" id="sreg" name="register">
+                                <input type="submit" value="register" id="sreg" name="register" >
                                 
                             </td>
                         </tr>

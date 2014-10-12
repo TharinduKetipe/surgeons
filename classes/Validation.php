@@ -57,29 +57,7 @@ class Validation{
 
 		return $this;
 	}
-        public function checkd($source, $items=array()){
-            
-            foreach ($items as $item => $rules) {
-                foreach ($rules as $rule => $rule_value) {
-				if(isset($source[$item])){
-					$value=$source[$item];
-				}
-                                if ($rule=='required'&&empty($value)) {
-					$this->addError($item,"{$item} is required");
-                                }  else {
-                                    
-                                }
-                                        
-                                }
-                                
-                
-            }
-            if (empty($this->_errors)) {
-			$this->_passed=true;
-            }
-            return $this;
-            
-        }
+        
 
         private function addError($item,$error){
 		$this->_errors[$item]=$error;

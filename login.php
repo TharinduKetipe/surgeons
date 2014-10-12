@@ -1,109 +1,4 @@
-<?php
 
-
-
-require_once 'core/init.php';
-global $error;
-global $fail;
-
-
-
-
-if(Input::exists()){
-    
-    
-    if(Token::check(Input::get('token'))){
-        
-
-    $validate = new Validation();
-    $validation = $validate->check($_POST,array(
-        'username'=> array(
-            'required' => TRUE,
-            'min' => 2,
-            'max' => 20,
-            'unique' => 'users'
-        ),
-        'password'=> array(
-            'required'=> TRUE,
-            'min' => 6
-        ),
-        'ConfirmPassword' => array(
-            'required' => TRUE,
-            'matches' => 'password'
-        ),
-        'name' => array(
-            'required' => TRUE,
-            'min' => 2,
-            'max' => 100,
-        ),
-        'email' => array(
-            'required' => TRUE,
-            'evalidate'=> TRUE,
-            
-            
-        ),
-        'nic' => array(
-            'required' => TRUE,
-            
-        ),
-        'birthday' => array(
-            'required' => TRUE,
-            
-        ),
-        'address' => array(
-            'required' => TRUE,
-            
-        ),
-        'country' => array(
-            'required' => TRUE,
-            
-        ),
-        'gender' => array(
-            'required' => TRUE,
-            
-        ),
-        
-    ));
-   
-    if ($validate->passed()){
-        $surgeon = new Surgeon();
-        $salt = Hash::salt(32);
-        
-        
-        try {
-            $surgeon->create(array(
-                'username' => Input::get('username'),
-                'password' => Hash::make(Input::get('password')),
-                'salt' => $salt,
-                'name' => Input::get('name'),
-                'joined' => date('Y-m-d H:i:s'),
-                'group' => 1
-            ));
-            
-
-            Session::flash('index','You have been registered and can now log in!');
-            
-            
-            Redirect::to('index.php');
-            
-            
-            
-        } catch (Exception $e) {
-            die($e->getMessage());
-            
-        }
-    
-    }  else {
-        $error = $validation->errors();
-        
-        
-    }
-    
-    }
-}
-
-   
-?>
 
 <?php
 require_once'core/init.php';
@@ -292,7 +187,7 @@ if (Input::exists()) {
         </form>
             <!--register-->
             <?php
-            include 'register.php';
+            //include 'register.php';
             ?>
             
             <?php 
