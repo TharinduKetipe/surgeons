@@ -9,7 +9,7 @@ require_once 'core/init.php';
 global $error;
 global $fail;
 
-$dcerror = "";
+
 
 
 
@@ -166,7 +166,7 @@ $dcerror = "";
    
 ?>
 <div class="regout">
-    <form action="login.php" method="post" style="margin-bottom: 0px" enctype="multipart/form-data">
+    <form action="surgeon.php" method="post" style="margin-bottom: 0px" enctype="multipart/form-data">
                 
                 
                 
@@ -621,6 +621,9 @@ $dcerror = "";
                             </td>
                         </tr>
                         <tr>
+                            <td>
+                                
+                            </td>
                             <td>
                                 
                             </td>
