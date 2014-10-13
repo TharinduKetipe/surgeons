@@ -4,9 +4,11 @@
 
 
 
+
 require_once 'core/init.php';
 global $error;
 global $fail;
+
 $dcerror = "";
 
 
@@ -17,6 +19,7 @@ $dcerror = "";
 
 
 
+
     
 
 
@@ -24,17 +27,19 @@ $dcerror = "";
 
 
 
-if(Input::exists()){
+//if(Input::exists()){
     
     
     
-    if(Token::check(Input::get('token'))){
-        if(!$_FILES['document']['size']>0){
+    //if(Token::check(Input::get('token'))){
+     /*   if(!$_FILES['document']['size']>0){
             $dcerror = "Please upload the document.";
             
         }  else {
             
-                  }
+                  }*/
+    
+    /*
 
     $validate = new Validation();
     $validation = $validate->check($_POST,array(
@@ -154,13 +159,14 @@ if(Input::exists()){
         
     }
     
-    }
-}
+    }*/
+    
+    //}
 
    
 ?>
 <div class="regout">
-    <form action="" method="post" style="margin-bottom: 0px" enctype="multipart/form-data">
+    <form action="login.php" method="post" style="margin-bottom: 0px" enctype="multipart/form-data">
                 
                 
                 
@@ -180,7 +186,7 @@ if(Input::exists()){
                                 </div>
                             </td>
                             <td>
-                                <?php if (isset($error['name']))  echo '<span style="color:red;font-size:17px;">'.$error['name'].'</span>'; ?><br><br>
+                                <?php if (isset($error['name']))  echo '<span style="color:red;font-size:15px;">'.$error['name'].'</span>'; ?><br><br>
                             </td>
                             
                             
@@ -197,7 +203,7 @@ if(Input::exists()){
                                 </div>
                             </td>
                             <td>
-                                <?php if (isset($error['email']))  echo '<span style="color:red;font-size:17px;">'.$error['email'].'</span>'; ?><br><br>
+                                <?php if (isset($error['email']))  echo '<span style="color:red;font-size:15px;">'.$error['email'].'</span>'; ?><br><br>
                             </td>
                             
                         </tr>
@@ -213,7 +219,7 @@ if(Input::exists()){
                                 </div>
                             </td>
                             <td>
-                                <?php if (isset($error['nic']))  echo '<span style="color:red;font-size:17px;">'.$error['nic'].'</span>'; ?><br><br>
+                                <?php if (isset($error['nic']))  echo '<span style="color:red;font-size:15px;">'.$error['nic'].'</span>'; ?><br><br>
                             </td>
                             
                         </tr>
@@ -229,7 +235,7 @@ if(Input::exists()){
                                 </div>
                             </td>
                             <td>
-                                <?php if (isset($error['birthday']))  echo '<span style="color:red;font-size:17px;">'.$error['birthday'].'</span>'; ?><br><br>
+                                <?php if (isset($error['birthday']))  echo '<span style="color:red;font-size:15px;">'.$error['birthday'].'</span>'; ?><br><br>
                             </td>
                             
                         </tr>
@@ -250,7 +256,7 @@ if(Input::exists()){
                                 </div>
                             </td>
                             <td>
-                                <?php if (isset($error['gender']))  echo '<span style="color:red;font-size:17px;">'.$error['gender'].'</span>'; ?><br><br>
+                                <?php if (isset($error['gender']))  echo '<span style="color:red;font-size:15px;">'.$error['gender'].'</span>'; ?><br><br>
                             </td>
                             
                         </tr>
@@ -266,7 +272,7 @@ if(Input::exists()){
                                 </div>
                             </td>
                             <td>
-                                <?php if (isset($error['number']))  echo '<span style="color:red;font-size:17px;">'.$error['number'].'</span>'; ?><br><br>
+                                <?php if (isset($error['number']))  echo '<span style="color:red;font-size:15px;">'.$error['number'].'</span>'; ?><br><br>
                             </td>
                             
                         </tr>
@@ -282,7 +288,7 @@ if(Input::exists()){
                                 </div>
                             </td>
                             <td>
-                                <?php if (isset($error['address']))  echo '<span style="color:red;font-size:17px;">'.$error['address'].'</span>'; ?><br><br>
+                                <?php if (isset($error['address']))  echo '<span style="color:red;font-size:15px;">'.$error['address'].'</span>'; ?><br><br>
                             </td>
                         </tr>
                         <tr>
@@ -546,7 +552,7 @@ if(Input::exists()){
                                 </div>
                             </td>
                             <td>
-                                <?php if (isset($error['country']))  echo '<span style="color:red;font-size:17px;">'.$error['country'].'</span>'; ?>
+                                <?php if (isset($error['country']))  echo '<span style="color:red;font-size:15px;">'.$error['country'].'</span>'; ?>
                             </td>
                         </tr>
                         <tr>
@@ -563,7 +569,7 @@ if(Input::exists()){
                                 </div>
                             </td>
                             <td>
-                                <?php if (isset($dcerror))  echo '<span style="color:red;font-size:17px;">'.$dcerror.'</span>'; ?><br><br>
+                                <?php if (isset($dcerror))  echo '<span style="color:red;font-size:15px;">'.$dcerror.'</span>'; ?><br><br>
                             </td>
                         </tr>
                         <tr>
@@ -578,7 +584,7 @@ if(Input::exists()){
                                 </div>
                             </td>
                             <td>
-                                <?php if (isset($error['username']))  echo '<span style="color:red;font-size:17px;">'.$error['username'].'</span>'; ?><br><br>
+                                <?php if (isset($error['username']))  echo '<span style="color:red;font-size:15px;">'.$error['username'].'</span>'; ?><br><br>
                             </td>
                         </tr>
                         <tr>
@@ -596,7 +602,7 @@ if(Input::exists()){
                                 </div>
                             </td>
                             <td>
-                                <?php if (isset($error['password']))  echo '<span style="color:red;font-size:17px;">'.$error['password'].'</span>'; ?><br><br>
+                                <?php if (isset($error['password']))  echo '<span style="color:red;font-size:15px;">'.$error['password'].'</span>'; ?><br><br>
                             </td>
                         </tr>
                         <tr>
@@ -611,7 +617,7 @@ if(Input::exists()){
                                 </div>
                             </td>
                             <td>
-                                <?php if (isset($error['ConfirmPassword']))  echo '<span style="color:red;font-size:17px;">'.$error['ConfirmPassword'].'</span>'; ?><br><br>
+                                <?php if (isset($error['ConfirmPassword']))  echo '<span style="color:red;font-size:15px;">'.$error['ConfirmPassword'].'</span>'; ?><br><br>
                             </td>
                         </tr>
                         <tr>
@@ -627,4 +633,4 @@ if(Input::exists()){
                     </table>
                 </div>
             </form>
-            </div>
+</div>

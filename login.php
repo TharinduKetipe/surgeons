@@ -1,12 +1,15 @@
 
 
-<?php
+<?php 
+
 require_once'core/init.php';
         $uname = 'Username';
         $pwd   = 'Password';
+        
+        if(isset($_POST['login'])){
        
 if (Input::exists()) {
-    if (Token::check(Input::get('token'))) {
+    //if (Token::check(Input::get('token'))) {
         
         $validate=new Validation();
         $validation=$validate->check($_POST, array(
@@ -30,7 +33,7 @@ if (Input::exists()) {
                  
                 
                
-                $uname='Invalid Log In. ';
+                $uname="";
                 $pwd='Invalid Log In.';
             }
         
@@ -44,11 +47,12 @@ if (Input::exists()) {
 </div>';
             
            
+            $uname= "";
             
             
-            
-            if(sizeof($validation->errors())==1){
+          /*  if(sizeof($validation->errors())==1){
                 if($validation->errors()[0]=='username is required'){
+                    echo $validation->errors()[0];
                     $uname = 'Username is required';
                     
                 }  else {
@@ -63,7 +67,7 @@ if (Input::exists()) {
                 $uname = 'Username is required.';
                 $pwd = 'Password is required.';
                 
-            }
+            }*/
             
               
                 
@@ -71,7 +75,139 @@ if (Input::exists()) {
           
         }
     }
-}
+        
+        }elseif (isset($_POST['register'])) {
+            if(Input::exists()){
+            
+             $validate = new Validation();
+    $validation = $validate->check($_POST,array(
+        'username'=> array(
+            'required' => TRUE,
+            'min' => 2,
+            'max' => 20,
+            'unique' => 'users'
+        ),
+        'password'=> array(
+            'required'=> TRUE,
+            'min' => 6
+        ),
+        'ConfirmPassword' => array(
+            'required' => TRUE,
+            'matches' => 'password'
+        ),
+        'name' => array(
+            'required' => TRUE,
+            'min' => 2,
+            'max' => 100,
+        ),
+        'email' => array(
+            'required' => TRUE,
+            'evalidate'=> TRUE,
+            
+            
+        ),
+        'nic' => array(
+            'required' => TRUE,
+            'min' => 6,
+            'max' => 10,
+            
+        ),
+        'birthday' => array(
+            'required' => TRUE,
+            
+        ),
+        'address' => array(
+            'required' => TRUE,
+            
+        ),
+        'country' => array(
+            'required' => TRUE,
+            
+        ),
+        'gender' => array(
+            'required' => TRUE,
+            
+        ),
+        
+        
+        
+        
+        
+    ));
+    
+    
+   
+    if ( $validation->passed()&& $_FILES['document']['size']>0){
+        $surgeon = new Surgeon();
+        $salt = Hash::salt(32);
+        
+        $fileName = $_FILES['document']['name'];
+        $tmpName  = $_FILES['document']['tmp_name'];
+        $fileSize = $_FILES['document']['size'];
+        $fileType = $_FILES['document']['type'];
+
+        $fp      = fopen($tmpName, 'r');
+        $content = fread($fp, filesize($tmpName));
+        $content = addslashes($content);
+         fclose($fp);
+
+        if(!get_magic_quotes_gpc()){
+
+        $fileName = addslashes($fileName);
+        }
+        
+        
+        try {
+            $surgeon->create(array(
+                'username' => Input::get('username'),
+                'password' => Hash::make(Input::get('password')),
+                'email'=> Input::get('email'),
+                'nic'  => Input::get('nic'),
+                'birthday' => Input::get('birthday'),
+                'gender' => Input::get('gender'),
+                'number' => Input::get('number'),
+                'address' => Input::get('address'),
+                'country' => Input::get('country'),
+                'dname'   => $fileName,
+                'dtype'   => $fileType,
+                'dsize'   => $fileSize,
+                'document'=> $content,
+                'salt' => $salt,
+                'name' => Input::get('name'),
+                'joined' => date('Y-m-d H:i:s'),
+                'group' => 1
+            ));
+            
+            
+            
+
+            Session::flash('index','You have been registered and can now log in!');
+            
+            
+            Redirect::to('index.php');
+            
+            
+            
+        } catch (Exception $e) {
+            die($e->getMessage());
+            
+        }
+    
+    }  else {
+        $error = $validation->errors();
+        
+        
+        
+    }
+    
+    }
+            
+        }
+            
+            
+            
+
+//}
 
 ?>
 
@@ -141,7 +277,7 @@ if (Input::exists()) {
                         <td>
                              <div class="input-group input-group-sm">
                              <span class="input-group-addon">@</span>
-                             <input type="text" class="form-control"  placeholder="<?php echo $uname;?>" name="username" id="username" autocomplete="off">
+                             <input type="text" class="form-control"  placeholder="<?php echo $uname;?>" name="username" id="username" value="<?php echo escape(Input::get('username')); ?>"autocomplete="off">
                              
                               </div>
                         </td>
@@ -187,7 +323,7 @@ if (Input::exists()) {
         </form>
             <!--register-->
             <?php
-            //include 'register.php';
+            include 'register.php';
             ?>
             
             <?php 

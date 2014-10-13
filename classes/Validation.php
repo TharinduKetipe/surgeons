@@ -1,4 +1,9 @@
 <?php
+
+global $emerr;
+$emerr= "";
+
+
 class Validation{
 	private $_passed=false,
 			$_errors=array(),
@@ -9,6 +14,22 @@ class Validation{
 	}
 
 	public function check($source, $items=array()){
+            
+            if(isset($_POST['email'])){
+            
+            $email = $_POST["email"];
+            
+            if(!filter_var($email, FILTER_VALIDATE_EMAIL)){
+                
+                $this->_errors['email']="Invalid email.";
+            }
+            }
+                
+                
+  
+  
+  
+            
 		foreach ($items as $item => $rules) {
 			foreach ($rules as $rule => $rule_value) {
 				if(isset($source[$item])){
@@ -70,4 +91,5 @@ class Validation{
 	public function passed(){
 		return $this->_passed;
 	}
+        
 }
