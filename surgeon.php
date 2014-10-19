@@ -505,18 +505,18 @@ global $fail;
    
 ?>
 <div class="regout">
-    <form action="surgeon.php" method="post" style="margin-bottom: 0px" enctype="multipart/form-data">
+    <form action="surgeon.php" method="post" style="margin-bottom: 0px;margin-top: 0px" enctype="multipart/form-data">
                 
                 
                 
                 
                 <div class="regs">
-                    <span style="color: #428bca;margin-top: 0px;margin-bottom: 0px;display: inline-block"><h1>Register</h1><h5><span style='color: red'><p>You should be a certified doctor in any state to register here.Our administrators will verify your data and decide weather approve or not.<br><br>* Marked fields are required.</p></span>  </h5></span>
+                    <span style="color: #000d69;font-family:'verdana';margin-top: 0px;margin-bottom: 0px;text-align: center"><h1>REGISTER</h1><h5><span style='color: red'><p>You should be a certified doctor in any state to register here. Our administrators will verify your data and decide weather approve or not.<br><br>* Marked fields are required.</p></span>  </h5></span>
                     <table >
                         <tr>
                             <td>
-                                <div class="field">
-                                    <label for="name">Full Name<span style="color: red">*</span> </label>                                
+                                <div class="labl">
+                                    <label for="name"><span style="color: red">*</span> Full Name : </label>                                
                                 </div>
                             </td>
                             <td>
@@ -532,8 +532,8 @@ global $fail;
                         </tr>
                         <tr>
                             <td>
-                                <div class="field">
-                                <label for="email"> Email Address<span style="color: red">*</span> </label>                                
+                                <div class="labl">
+                                <label for="email"><span style="color: red">*</span> Email Address :  </label>                                
                                 </div>
                             </td>
                             <td>
@@ -548,8 +548,8 @@ global $fail;
                         </tr>
                         <tr>
                             <td>
-                                <div class="field">
-                                <label for="nic"> NIC/ Passport Number<span style="color: red">*</span> </label>                                
+                                <div class="labl">
+                                <label for="nic"> <span style="color: red">*</span>NIC/ Passport Number :  </label>                                
                                 </div>
                             </td>
                             <td>
@@ -564,8 +564,8 @@ global $fail;
                         </tr>
                         <tr>
                             <td>
-                                <div class="field">
-                                <label for="dob"> Date of Birth<span style="color: red">*</span> </label>                                
+                                <div class="labl">
+                                <label for="dob"><span style="color: red">*</span>  Date of Birth : </label>                                
                                 </div>
                             </td>
                             <td>
@@ -580,8 +580,8 @@ global $fail;
                         </tr>
                         <tr>
                              <td>
-                                <div class="field">
-                                <label for="gender"> Gender<span style="color: red">*</span> </label> 
+                                <div class="labl">
+                                <label for="gender"> <span style="color: red">*</span> Gender : </label> 
                                 
                                 </div>
                              </td>
@@ -601,8 +601,8 @@ global $fail;
                         </tr>
                         <tr>
                             <td>
-                                <div class="field">
-                                <label for="number"> Contact Number  </label>                                
+                                <div class="labl">
+                                <label for="number"> Contact Number :  </label>                                
                                 </div>
                             </td>
                             <td>
@@ -617,8 +617,8 @@ global $fail;
                         </tr>
                         <tr>
                             <td>
-                                <div class="field">
-                                <label for="address"> Permanent Address<span style="color: red">*</span> </label>                                
+                                <div class="labl">
+                                <label for="address"> <span style="color: red">*</span> Permanent Address : </label>                                
                                 </div>
                             </td>
                             <td>
@@ -632,8 +632,8 @@ global $fail;
                         </tr>
                         <tr>
                             <td>
-                                <div class="field">
-                                <label for="country">Country<span style="color: red">*</span> </label>                                
+                                <div class="labl">
+                                <label for="country"><span style="color: red">*</span>Country : </label>                                
                                 </div>
                             </td>
                             <td>
@@ -896,8 +896,8 @@ global $fail;
                         </tr>
                         <tr>
                             <td>
-                                <div class="field">
-                                <label for="doc"> Any document can prove you are a certified doctor<span style="color: red">*</span> </label>                                
+                                <div class="labl">
+                                <label for="doc"> <span style="color: red">*</span>Any document can prove you are a certified doctor :  </label>                                
                                 </div>
                             </td>
                             <td>
@@ -913,8 +913,8 @@ global $fail;
                         </tr>
                         <tr>
                             <td>
-                                <div class="field">
-                                <label for="uname"> Username<span style="color: red">*</span> </label>                                
+                                <div class="labl">
+                                <label for="uname"> <span style="color: red">*</span>Username :  </label>                                
                                 </div>
                             </td>
                             <td>
@@ -931,8 +931,8 @@ global $fail;
                         </tr>
                         <tr>
                             <td>
-                                <div class="field">
-                                <label for="pwd"> Password<span style="color: red">*</span> </label>                                
+                                <div class="labl">
+                                <label for="pwd"> <span style="color: red">*</span>Password : </label>                                
                                 </div>
                             </td>
                             <td>
@@ -946,8 +946,8 @@ global $fail;
                         </tr>
                         <tr>
                             <td>
-                                <div class="field">
-                                <label for="cpwd">Confirm Password<span style="color: red">*</span> </label>                                
+                                <div class="labl">
+                                <label for="cpwd"><span style="color: red">*</span>Confirm Password :</label>                                
                                 </div>
                             </td>
                             <td>
